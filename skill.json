@@ -1,0 +1,67 @@
+{
+  "name": "genpark-agentic-commerce-real-time-dynamic-freight-fuel-surcharge-index-skill",
+  "version": "1.0.0",
+  "title": "Dynamic Freight Fuel Surcharge (FSC) DOE Indexer Skill",
+  "description": "EIA/DOE weekly diesel fuel price indexing, dynamic LTL/FTL linehaul fuel surcharge (FSC) calculation, and carrier overbill audit. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "fuel-surcharge",
+    "fsc-index",
+    "freight-audit",
+    "logistics-procurement",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "calculate_baseline_fsc_percentage",
+      "description": "Compute contract fuel surcharge percentage from weekly DOE On-Highway Diesel price index.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "current_doe_diesel_price_per_gal": {
+            "type": "number"
+          },
+          "baseline_diesel_peg": {
+            "type": "number"
+          },
+          "fsc_step_cents": {
+            "type": "number"
+          },
+          "fsc_step_pct": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "current_doe_diesel_price_per_gal"
+        ]
+      }
+    },
+    {
+      "name": "audit_carrier_invoice_fsc_overcharge",
+      "description": "Audit billed freight invoice FSC against official index date to flag carrier margin padding.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "billed_fsc_usd": {
+            "type": "number"
+          },
+          "linehaul_charge_usd": {
+            "type": "number"
+          },
+          "expected_fsc_pct": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "billed_fsc_usd",
+          "linehaul_charge_usd",
+          "expected_fsc_pct"
+        ]
+      }
+    }
+  ]
+}
